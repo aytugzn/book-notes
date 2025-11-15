@@ -1,0 +1,93 @@
+<%- include("partials/header") %>
+
+    <section class="main">
+
+        <div class="card-wrapper">
+            <% if(locals.books && books.length>0 ) { %>
+                <% for(const book of books) { %>
+                    <div class="card">
+                        <% if ((book.cover_i>0) || (book.covers && book.covers.length>0)||(book.book_cover)){ %>
+                            <div class="cover-wrapper">
+                                <img src="https://covers.openlibrary.org/b/id/<%= book.book_cover ? book.book_cover : (book.cover_i ? book.cover_i : (book.covers && book.covers.length > 0 ? book.covers[0] : '') ) %>-M.jpg"
+                                    alt="Book Cover" class="cover-img" loading="lazy" />
+                            </div>
+                            <% } else { %>
+                                <div class="cover-wrapper">
+                                    <img src="images/no-cover.jpg" alt="book cover" class="cover-img" loading="lazy" />
+                                </div>
+                                <% } %>
+                                    <form action="/book" method="POST" style="display: 'inline;'">
+                                        <input type="hidden" name="bookId"
+                                            value="<%= book.key?book.key:book.book_id %>">
+                                        <h3><a href="#" class="link"
+                                                onclick="this.closest('form').submit(); return false;">
+                                                <%= book.title? book.title: book.book_name %>
+                                            </a> </h3>
+                                    </form>
+
+
+                                    <% if(book.author_key && book.author_key.length> 0 || (author &&
+                                        Object.keys(author).length > 0) || book.book_author) { %>
+                                        <form action="/author" method="POST" style="display: 'inline;'">
+                                            <input type="hidden" name="authorId"
+                                                value="<%= book.author_key?book.author_key[0]: " Unknown" %>">
+                                            <p class="author-paragraph"><a href="#" class="link author"
+                                                    onclick="this.closest('form').submit(); return false;">
+                                                    <%= book.author_name ? book.author_name[0] : (author && author.name
+                                                        ? author.name : book.book_author) %>
+
+                                                </a></p>
+
+                                        </form>
+                                        <% } else { %>
+                                            <p>Author Unknown</p>
+                                            <% } %>
+                                                <form method="POST" class="card-buttons">
+                                                    <input type="hidden" name="bookId"
+                                                        value="<%= book.key?book.key:book.book_id %>" />
+                                                    <input type="hidden" name="bookTitle"
+                                                        value="<%= book.title?book.title:book.book_name %>" />
+                                                    <input type="hidden" name="bookAuthor" value="<%= book.author_name ? book.author_name[0] : (author?.name ? author.name : book.book_author) %>
+" />
+
+                                                    <input type="hidden" name="bookCover" value="<%= book.cover_i ? book.cover_i : (book.covers ? book.covers[0] : book.book_cover) %>
+" />
+
+                                                    <button class="btn btn-show" type="submit" formaction="/book"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-eye show-eye"
+                                                            viewBox="0 0 16 16">
+                                                            <path class="show-eye"
+                                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                                            <path class="show-eye"
+                                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                                        </svg>Show
+                                                        Book</button>
+
+
+                                                    <button class="btn btn-add" type="submit" formaction="/savedbook">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-plus-square"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                                            <path
+                                                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                                        </svg>
+                                                        <p>Mark As Read</p>
+                                                    </button>
+
+                                                </form>
+                    </div>
+                    <%}} else {%>
+                        <h2 class="error">Something went wrong..</h2>
+                        <% } %>
+
+        </div>
+
+    </section>
+    </div>
+
+    </body>
+
+    </html>
