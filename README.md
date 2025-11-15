@@ -59,8 +59,8 @@ Bu projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımlar�
 
 1.  **Projeyi klonlayın:**
     ```sh
-    git clone [https://github.com/senin-kullanici-adin/proje-adin.git](https://github.com/senin-kullanici-adin/proje-adin.git)
-    cd proje-adin
+    git clone https://github.com/aytugzn/book-notes.git
+    cd book-notes
     ```
 
 2.  **Gerekli paketleri yükleyin:**
@@ -76,7 +76,7 @@ Bu projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımlar�
     Projenin ana dizininde `.env` adında bir dosya oluşturun ve içine PostgreSQL bağlantı bilgilerinizi girin:
     ```
     DB_USER=postgres
-    DB_PASS=senin_sifren
+    DB_PASS=kendi_db_sifreniz
     DB_HOST=localhost
     DB_NAME=booknotes
     DB_PORT=5432
